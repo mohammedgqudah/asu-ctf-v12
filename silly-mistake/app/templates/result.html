@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block main %}
+  <h1>Result</h1>
+	<hr/>
+	{% if message %}
+		<h3>{{message}}</h3>
+		<hr/>
+	{% endif %}
+	{% if result %}
+		<pre><code>{{result}}</code></pre>
+	{% endif %}
+{% endblock %}

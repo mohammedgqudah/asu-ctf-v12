@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1>You are viewing notes written by {{author}}</h1>
+	<ul>
+		{%for note in notes %}
+			<li>{{note[0]}}</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block main %}
+  <h1>Write and share notes</h1>
+	<h3>Welcome back, {{username}}</h3>
+	<form action="/" method="POST">
+		<input type="text" name="note" placeholder="Enter your note here" required/>
+		<button>Add note</button>
+	</form>
+	<hr/>
+
+	{% if notes %}
+		<h4>Notes:</h4>
+		<ul>
+			{%for note in notes %}
+				<li>{{note[0]}}</li>
+	  		{% endfor %}
+		</ul>
+	{% endif %}
+
+	<hr/>
+	<article style="max-width: 400px; padding: 20px;display: inline-block; margin-right: 20px">
+	  <form>
+		<h4>Want to share your notes with a friend? Just enter their username</h4>
+
+		<label for="share_with">Friend's Username</label>
+		<input id="share_with" type="text" name="share_with" placeholder="Friend123" required>
+
+		<button type="submit" class="secondary small">Share notes!</button>
+	  </form>
+	</article>
+
+	{%if share_link %}
+	<article style="max-width: 400px; padding: 20px;display:inline-block">
+		  <h3>Share This Link</h3>
+
+		  <p>Your link has been generated. You can copy it and share it with your friend:</p>
+
+		  <input id="share_link" type="text" value="{{share_link}}" readonly style="cursor: text;">
+		  
+		  <button class="secondary" onclick="navigator.clipboard.writeText(document.querySelector('#share_link').value)">
+			Copy Link
+		  </button>
+		</article>
+  	{%endif%}
+{% endblock %}
