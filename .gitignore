@@ -1,0 +1,5 @@
+*.zip
+solve.py
+.venv/
+*.db
+*.pyc

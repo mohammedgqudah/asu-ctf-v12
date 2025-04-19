@@ -1,0 +1,11 @@
+services:
+  challenge:
+    build: .
+    ports:
+      - 30002:3000
+    volumes:
+      - ./bot/report.js:/bot/report.js
+      - ./pastebin/templates:/app/templates
+      - ./pastebin/main.py:/app/main.py
+    environment:
+      FLAG: 'ASU{fake_cookie}'

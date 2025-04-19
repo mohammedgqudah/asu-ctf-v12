@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" data-theme="light"> 
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+	<title>ASU Pastebin</title>
+  </head>
+  <body>
+
+    <main class="container">
+	<header>
+			<h1><a href="{{ url_for('index') }}">ASU Pastebin | {{username}}</a></h1>
+</header>
+	<aside class="container" style="background: var(--muted-color); padding: 1rem; border-radius: var(--border-radius); margin-bottom: 2rem;">
+  <strong>Changelog:</strong>
+  <ul>
+    <li><strong>v1.2.0</strong> – Added <em>“Report”</em> button to each paste</li>
+    <li><strong>v1.1.0</strong> – Diff comparison between pastes</li>
+    <li><strong>v1.0.0</strong> – Initial release with guest login and paste creation</li>
+  </ul>
+  <small>Updated April 2025</small>
+</aside>
+	<!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <section>
+                {% for category, message in messages %}
+                    {% set color = {
+                        'success': '#d4edda',
+                        'info': '#d1ecf1',
+                        'warning': '#fff3cd',
+                        'error': '#f8d7da'
+                    }.get(category, '#eee') %}
+                    <div role="alert" style="background-color: {{ color }}; padding: 1em; border-radius: 0.3em;">
+                        <strong>{{ category.capitalize() }}:</strong> {{ message }}
+                    </div>
+                {% endfor %}
+            </section>
+        {% endif %}
+    {% endwith %}
+
+		{% block main %}
+		{% endblock %}
+    </main>
+  </body>
+	<style>
+	</style>
+</html>

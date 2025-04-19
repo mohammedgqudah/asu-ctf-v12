@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<h2>New Paste</h2>
+<form method="post" action="/">
+	<input type="text" name="filename" id="filename" required value="{{filename}}" hidden></input>
+
+    <label for="content">Content:</label>
+    <textarea name="content" id="content" rows="10" required></textarea>
+    <button type="submit">Paste</button>
+</form>
+
+<hr>
+
+<h2>Recent Pastes</h2>
+<ul>
+    {% for paste in pastes %}
+    <li>
+        <a href="/paste/{{ paste[0] }}">{{ paste[2] }}</a>
+		—
+		<a href="/report?url={{('http://localhost:5002/paste/' ~ paste[0]) | urlencode }}">report</a>
+    </li>
+    {% else %}
+    <p>No pastes yet.</p>
+    {% endfor %}
+</ul>
+
+
+<hr>
+<!-- Diff Section -->
+<h3>Compare Pastes</h3>
+<form method="get" action="/compare_pastes">
+    <label for="paste1">Select Paste 1:</label>
+    <select name="paste1" id="paste1" required>
+        <option value="">-- Select a paste --</option>
+        {% for paste in pastes %}
+        <option value="{{ paste[0] }}">{{ paste[2] }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="paste2">Select Paste 2:</label>
+    <select name="paste2" id="paste2" required>
+        <option value="">-- Select a paste --</option>
+        {% for paste in pastes %}
+        <option value="{{ paste[0] }}">{{ paste[2] }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Compare</button>
+</form>
+{% endblock %}
+
