@@ -5,4 +5,4 @@ services:
     environment:
       FLAG: 'ASU{testing_flag}'
     ports:
-      - 8008:3000
+      - 8009:8000
