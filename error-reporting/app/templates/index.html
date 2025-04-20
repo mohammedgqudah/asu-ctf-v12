@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block main %}
+	<h1 style="text-align: center">There is no flag here</h1>
+	<hr/>
+	<form class="container" style="font-size: 0.875rem; max-width: 400px; padding: 1rem; border: 1px solid var(--muted-border-color); border-radius: 0.5rem;" action="/friend" method="post">
+		<h5>But you can add friends instead!</h5>
+		<label for="username">
+			Username
+			<input type="text" id="username" name="username" required placeholder="friend">
+		</label>
+		<button type="submit">Add friend</button>
+	</form>
+	<footer style="text-align: center; padding: 1rem 0;">
+	  <small>You can view logs in <a href="/logs">/logs</a></small>
+	</footer>
+{% endblock %}
