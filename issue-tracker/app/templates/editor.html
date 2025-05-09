@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Add task{% endblock %}
+{% block content %}
+<br/>
+  <form method="POST" action="{{ url_for('submit') }}">
+<label><input name="title" placeholder="Task title"/></label>
+    <div id="editor">{{ existing_content|safe }}</div>
+    <input type="hidden" name="content" id="hidden-content">
+    <button type="submit">Save</button>
+  </form>
+
+	<style>
+		input {
+			width: 80%;
+			padding: 10px;
+			margin: 10px 0;
+		}
+		#editor {
+			min-height: 200px;
+}
+	</style>
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script>
+    var quill = new Quill('#editor', {
+      theme: 'snow',
+      modules: {
+        toolbar: {
+          container: [
+            [{ header: [1, 2, false] }],
+            ['bold','italic','underline'],
+            ['image','code-block']
+          ],
+          handlers: {
+            image: imageHandler
+          }
+        }
+      }
+    });
+
+    document.querySelector('form').onsubmit = function() {
+      var html = quill.root.innerHTML;
+      document.getElementById('hidden-content').value = html;
+    };
+
+    function imageHandler() {
+      var input = document.createElement('input');
+      input.setAttribute('type', 'file');
+      input.setAttribute('accept', 'image/*');
+      input.click();
+
+      input.onchange = function() {
+        var file = input.files[0];
+        var formData = new FormData();
+        formData.append('image', file);
+
+        fetch('{{ url_for("upload_image") }}', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.url) {
+            var range = quill.getSelection();
+            quill.insertEmbed(range.index, 'image', data.url);
+          } else {
+            console.error('Upload failed:', data);
+          }
+        })
+        .catch(err => console.error('Error:', err));
+      };
+    }
+  </script>
+{% endblock %}
+

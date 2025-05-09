@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<form action="/settings" method="post">
+  <button type="submit" class="upload-btn">Export all tasks now</button>
+</form>
+<hr/>
+<h1>Exports</h1>
+{% for export in exports %}
+<a href="/static/{{export.filename}}" style="display: block">{{export.filename}}</a>
+{% endfor %}
+{% endblock %}
+

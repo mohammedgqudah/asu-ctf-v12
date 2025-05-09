@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Index{% endblock %}
+{% block content %}
+	<h1>Default Board</h1>
+	<a href="/editor">Add a new task</a>
+	<div class="board">
+		<div>
+			<h2>Pending</h2>
+			{% for task in tasks.pending %}
+				<details class="task">
+				<summary>{{task.title}}  | <a href="/move/{{task.id}}">Move</a></summary>
+					<hr/>
+					{{task.content | safe}}
+				</details>
+			{% endfor %}
+		</div>
+		<div>
+			<h2>In Progress</h2>
+			{% for task in tasks.in_progress %}
+				<details class="task">
+				<summary>{{task.title}}  | <a href="/move/{{task.id}}">Move</a></summary>
+					<hr/>
+					{{task.content | safe}}
+				</details>
+			{% endfor %}
+		</div>
+		<div>
+			<h2>Done</h2>
+			{% for task in tasks.done %}
+				<details class="task">
+				<summary>{{task.title}}</summary>
+					<hr/>
+					{{task.content | safe}}
+				</details>
+			{% endfor %}
+		</div>
+	</div>
+	<style>
+		.task {
+			background-color: var(--yellow2);
+			  padding:5px 10px;
+			  border-radius:2px;
+			margin-bottom: 10px;
+		}
+		.board {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			width: 100%;
+			grid-gap: 10px;
+				height: 100%;
+			div {
+				padding: 0 5px;
+				border-right: 2px dashed var(--yellow2);
+			}
+		}
+		main {
+			max-width: unset !important;
+			padding: 0 40px;
+				height: 100%;
+		}
+	</style>
+{% endblock %}
+

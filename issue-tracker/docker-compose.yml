@@ -1,0 +1,7 @@
+services:
+  challenge:
+    build: .
+    ports:
+      - 30002:5002
+    environment:
+      FLAG: 'ASU{fake_flag}'
