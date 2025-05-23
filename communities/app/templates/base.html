@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" data-theme="dark"> 
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+	<link rel="stylesheet" href="https://unpkg.com/bamboo.css" type="text/css">
+    <title>Posts</title>
+  </head>
+  <body>
+    <main class="container">
+		<!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <section>
+                    {% for category, message in messages %}
+                        <article class="flash-message {{ category }}">
+                            {{ message }}
+                        </article>
+                    {% endfor %}
+                </section>
+            {% endif %}
+        {% endwith %}
+
+		{% block main %}
+		{% endblock %}
+    </main>
+  </body>
+	<style>
+		.flash-message.error {
+			color: red;
+			border: 1px solid red;
+		}
+	</style>
+</html>
