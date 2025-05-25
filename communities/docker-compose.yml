@@ -1,8 +1,0 @@
-version: '3'
-services:
-  app:
-    build: .
-    environment:
-      FLAG: 'ASU{testing_flag}'
-    ports:
-      - 30013:5006
