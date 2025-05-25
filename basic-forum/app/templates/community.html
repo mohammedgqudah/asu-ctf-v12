@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block main %}
+	<h1>Community: {{community.name}}</h1>
+	<hr/>
+	<form action="/community/{{community.id}}" method="POST">
+		<input name="title" placeholder="Title"/>
+		<br/><br/>
+		<textarea name="content" placeholder="Post content"></textarea>
+		<br/><br/>
+		<button>Add Post</button>
+	</form>
+		<br/>
+	<hr/>
+	<h1>Posts</h1>
+	{% for post in community.posts %}
+	<h4>{{post.title}}</h4>
+	<pre>{{post.content}}</pre>
+	{% else %}
+		<h3>No posts available</h3>
+	{% endfor %}
+{% endblock %}

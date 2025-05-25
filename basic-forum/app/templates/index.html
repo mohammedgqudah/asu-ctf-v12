@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block main %}
+  <h1>My Communities</h1>
+  {% if joined_communities %}
+    <ul>
+      {% for community in joined_communities %}
+        <li>
+          <a href="/community/{{ community.id }}">{{ community.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You have not joined any communities yet.</p>
+  {% endif %}
+
+  <h1>Available Communities</h1>
+  {% if communities %}
+    <ul>
+      {% for community in communities %}
+        <li>
+          {{ community.name }}
+          <form action="/join/{{ community.id }}" method="post" style="display:inline;">
+            <button type="submit" style="padding: 3px 10px; width: unset">Join</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No communities available to join.</p>
+  {% endif %}
+	<hr/>
+	<h2>Create your own community!</h2>
+  <form method="POST" action="/create">
+		<label>
+		<input name="name" required placeholder="Community Name"/>
+		</label>
+		<br/>
+		<label>
+		  <small>Welcome message template (This template will be used to greet users when they join your community)<br/></small><br/>
+		  <textarea name="welcome_template">{% raw %}Welcome, {{user.username}} {% endraw %}</textarea>
+		</label>
+		<button>Create Community</button>
+  </form>
+{% endblock %}
